@@ -1,0 +1,12 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  height: 100vh;
+}
+
+h1 {
+  /*quitar formato*/
+  /* all: unset; */
+  margin: 0px
+}
+
