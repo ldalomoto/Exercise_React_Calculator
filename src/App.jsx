@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import Api from './components/page_search'
 
 function Button({ value, func }) {
   return (
@@ -29,6 +30,7 @@ function App() {
 
   const [page1, setPage1] = useState(false)
   const [page2, setPage2] = useState(false)
+  const [page3, setPage3] = useState(false)
 
   const [display, setDisplay] = useState("0")
 
@@ -48,6 +50,13 @@ function App() {
     }
   }
 
+  const changeP3 = () => {
+    if (page3 === false) {
+      setPage3(true)
+    } else {
+      setPage3(false)
+    }
+  }
   const Sumar = () => {
 
     const numero1 = Number(num1)
@@ -81,6 +90,7 @@ function App() {
       <div className='botones'>
         <button style={{ width: '100px' }} onClick={() => changeP1()}>OPCION1</button>
         <button style={{ width: '100px' }} onClick={() => changeP2()}>OPCION2</button>
+        <button style={{ width: '100px' }} onClick={() => changeP3()}>OPCION3</button>
       </div>
 
       {page1 && (
@@ -142,6 +152,10 @@ function App() {
           </div>
         </div>)
       }
+
+      {page3 && (
+        <Api />
+      )}
     </>
   )
 }

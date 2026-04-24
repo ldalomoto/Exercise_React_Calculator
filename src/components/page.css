@@ -1,0 +1,14 @@
+.encabezado {
+    display: flex;
+    gap: 50px;
+}
+
+.card_personaje {
+    width: 5%;
+}
+
+.Cards_api {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
