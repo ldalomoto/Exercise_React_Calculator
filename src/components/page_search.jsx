@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "./page.css";
+import { Information } from "./information"
 
 //export function Search({ onSearch }) {
 //  const [value, setValue] = useState("");
@@ -23,7 +24,7 @@ import "./page.css";
 //  );
 //}
 
-export function Card({ character }) {
+export function Card({ character, setPage, setFocus }) {
   return (
     <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:scale-[1.02] transition duration-300">
       
@@ -70,7 +71,7 @@ export function Card({ character }) {
         </div>
 
         {/* Botón */}
-        <button className="w-full mt-3 bg-gradient-to-r from-green-400 to-green-600 text-white py-2 rounded-xl hover:opacity-90 transition">
+        <button className="w-full mt-3 bg-gradient-to-r from-green-400 to-green-600 text-white py-2 rounded-xl hover:opacity-90 transition" onClick={() => (setPage(true), setFocus(character))}>
           Ver más
         </button>
       </div>
@@ -79,6 +80,9 @@ export function Card({ character }) {
 }
 
 export default function Api( {dataApi, filtered, setDataApi, setFiltered} ) {
+
+  const [page, setPage] = useState(false)
+  const [focus, setFocus] = useState()
 
   useEffect(() => {
     fetch("https://rickandmortyapi.com/api/character")
@@ -108,9 +112,13 @@ export default function Api( {dataApi, filtered, setDataApi, setFiltered} ) {
         lg:grid-cols-4">
         
         {filtered.map((char) => (
-          <Card key={char.id} character={char} />
+          <Card key={char.id} character={char} setPage={setPage} setFocus={setFocus}/>
         ))}
       </div>
+
+      {page && (
+        <Information character={focus} setPage={setPage}/>
+      )}
 
     </div>
   );
