@@ -1,12 +1,19 @@
-import { useState, useEffect } from "react";
-import './page.css';
+import { useState, Dispatch, SetStateAction } from "react";
+import { Character } from "../types/type";
+// @ts-ignore: allow importing CSS side-effect in TSX
+import '../style/App.css';
 
-export function Search({ dataApi, setFiltered}) {
-  const [value, setValue] = useState("");
+interface SearchProps {
+  dataApi: Character[];
+  setFiltered: Dispatch<SetStateAction<Character[]>>;
+}
 
-  const handleSearch = (value) => {
+export function Search({ dataApi, setFiltered }: SearchProps) {
+  const [value, setValue] = useState<string>("");
+
+  const handleSearch = (val: string) => {
     const result = dataApi.filter((char) =>
-      char.name.toLowerCase().includes(value.toLowerCase())
+      char.name.toLowerCase().includes(val.toLowerCase())
     );
     setFiltered(result);
   };
@@ -17,7 +24,10 @@ export function Search({ dataApi, setFiltered}) {
         type="text"
         placeholder="Buscar personaje..."
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          setValue(e.target.value);
+          handleSearch(e.target.value);
+        }}
         className="w-72 px-4 py-2 rounded-xl border border-gray-300 focus:ring-2 focus:ring-blue-400 outline-none"
       />
       <button
